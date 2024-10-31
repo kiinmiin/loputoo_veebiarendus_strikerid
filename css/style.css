@@ -275,7 +275,7 @@ a {
 	margin-right: 0.5rem;
 }
 /* mobile view adjustements */
-@media (ma-width: 768px) {
+@media (max-width: 768px) {
 	/* navbar */
 	#navbar ul {
 		flex-direction: column;
