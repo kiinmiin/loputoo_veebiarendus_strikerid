@@ -144,34 +144,32 @@
 		const rightBtn = document.querySelector('.right-btn');
 		const adsWrapper = document.querySelector('.ads-wrapper');
 
-		// Set initial scroll position
-		let scrollAmount = 0;
+		// Check if all elements are present before adding event listeners
+		if (leftBtn && rightBtn && adsWrapper) {
+			// Set initial scroll position
+			let scrollAmount = 0;
+			const scrollDistance = 160;
 
-		// Function to handle scrolling left
-		leftBtn.addEventListener('click', () => {
-			if (scrollAmount > 0) {
-				scrollAmount -= 160; // Adjust scroll distance to match ad width + margin
-			} else {
-				scrollAmount = adsWrapper.scrollWidth - adsWrapper.clientWidth; // Loop to the end if at start
-			}
-			adsWrapper.scrollTo({
-				left: scrollAmount,
-				behavior: "smooth"
+			// Function to handle scrolling left
+			leftBtn.addEventListener('click', () => {
+				scrollAmount = Math.max(0, scrollAmount - scrollDistance);
+				adsWrapper.scrollTo({
+					left: scrollAmount,
+					behavior: "smooth"
+				});
 			});
-		});
 
-		// Function to handle scrolling right
-		rightBtn.addEventListener('click', () => {
-			if (scrollAmount < adsWrapper.scrollWidth - adsWrapper.clientWidth) {
-				scrollAmount += 160; // Adjust scroll distance to match ad width + margin
-			} else {
-				scrollAmount = 0; // Loop back to start if at end
-			}
-			adsWrapper.scrollTo({
-				left: scrollAmount,
-				behavior: "smooth"
+			// Function to handle scrolling right
+			rightBtn.addEventListener('click', () => {
+				scrollAmount = Math.min(adsWrapper.scrollWidth - adsWrapper.clientWidth, scrollAmount + scrollDistance);
+				adsWrapper.scrollTo({
+					left: scrollAmount,
+					behavior: "smooth"
+				});
 			});
-		});
+		} else {
+			console.warn("One or more carousel elements (leftBtn, rightBtn, or adsWrapper) are missing.");
+		}
 	</script>
 </body>
 </html>
